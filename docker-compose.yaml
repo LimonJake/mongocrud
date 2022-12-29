@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  jakedb:
+    image: mongo
+    container_name: jakedb
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: jake
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  mongoui:
+    depends_on:
+      - jakedb
+    image: mongo-express
+    container_name: mongoui
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: jake
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_SERVER: jakedb
